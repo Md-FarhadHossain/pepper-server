@@ -26,7 +26,20 @@ const dbConnect = async () => {
 };
 dbConnect();
 
+// Databse
+const headingDB = client.db('pepper').collection('heading')
 
+// Heading
+app.get('/heading', async (req, res) => {
+  try {
+    const query = {}
+    const result = await headingDB.find(query).toArray()
+    res.send(result)
+  }
+  catch (error) {
+    console.log(error.name, error.message);
+  }
+})
 
 app.get('/', (req, res) => {
   res.send(`Server is running port at ${PORT}`)
