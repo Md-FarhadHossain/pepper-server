@@ -28,6 +28,7 @@ dbConnect();
 
 // Databse
 const headingDB = client.db('pepper').collection('heading')
+const buttonTapped = client.db('pepper').collection('buttonTapped')
 
 // Getting the Heading
 app.get('/heading', async (req, res) => {
@@ -56,6 +57,20 @@ app.patch('/heading/:id', async (req, res) => {
     console.log(error.name, error.message);
   }
 })
+
+// Getting Button Tapped
+app.get('/buttonTapped', async (req, res) => {
+  try {
+    const query = {}
+    const result = await buttonTapped.findOne(query)
+    res.send(result)
+  }
+  catch (error) {
+    console.log(error.name, error.message);
+  }
+})
+
+
 
 app.get('/', (req, res) => {
   res.send(`Server is running port at ${PORT}`)
