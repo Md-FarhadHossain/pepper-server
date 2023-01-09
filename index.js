@@ -62,7 +62,7 @@ app.patch('/heading/:id', async (req, res) => {
 app.get('/buttonTapped', async (req, res) => {
   try {
     const query = {}
-    const result = await buttonTapped.findOne(query)
+    const result = await buttonTapped.find(query).toArray()
     res.send(result)
   }
   catch (error) {
@@ -70,7 +70,32 @@ app.get('/buttonTapped', async (req, res) => {
   }
 })
 
+// Updating the Button Tapped
+// app.patch('/buttonTapped/:id', async (req, res) => {
+//   try {
+//     const id = req.params.id;
+//     const result = await buttonTapped.updateOne(
+//       { _id: ObjectId(id) },
+//       { $set: req.body }
+//     );
+//     console.log(req.body)
+//     res.send(result);
+//   }
+//   catch (error) {
+//     console.log(error.name, error.message);
+//   }
+// })
 
+app.post('/buttonTapped', async (req, res) => {
+  try {
+    const body = req.body
+    const result = await buttonTapped.insertOne(body)
+    res.send(result)
+  }
+  catch (error) {
+    console.log(error.name, error.message);
+  }
+})
 
 app.get('/', (req, res) => {
   res.send(`Server is running port at ${PORT}`)
