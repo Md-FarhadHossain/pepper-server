@@ -1,5 +1,5 @@
 const express = require("express");
-const { MongoClient, ServerApiVersion } = require("mongodb");
+const { MongoClient, ServerApiVersion, ObjectId } = require("mongodb");
 const cors = require("cors");
 require("dotenv").config();
 const app = express();
@@ -29,12 +29,28 @@ dbConnect();
 // Databse
 const headingDB = client.db('pepper').collection('heading')
 
-// Heading
+// Getting the Heading
 app.get('/heading', async (req, res) => {
   try {
     const query = {}
     const result = await headingDB.findOne(query)
     res.send(result)
+  }
+  catch (error) {
+    console.log(error.name, error.message);
+  }
+})
+
+// Updating the Heading
+app.patch('/heading/:id', async (req, res) => {
+  try {
+    const id = req.params.id;
+    const result = await headingDB.updateOne(
+      { _id: ObjectId(id) },
+      { $set: req.body }
+    );
+    console.log(req.body)
+    res.send(result);
   }
   catch (error) {
     console.log(error.name, error.message);
