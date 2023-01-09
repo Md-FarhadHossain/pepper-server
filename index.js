@@ -33,7 +33,7 @@ const headingDB = client.db('pepper').collection('heading')
 app.get('/heading', async (req, res) => {
   try {
     const query = {}
-    const result = await headingDB.find(query).toArray()
+    const result = await headingDB.findOne(query)
     res.send(result)
   }
   catch (error) {
