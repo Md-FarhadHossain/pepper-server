@@ -29,6 +29,7 @@ dbConnect();
 // Databse
 const headingDB = client.db('pepper').collection('heading')
 const buttonTapped = client.db('pepper').collection('buttonTapped')
+const logoDB = client.db('pepper').collection('logoDB')
 
 // Getting the Heading
 app.get('/heading', async (req, res) => {
@@ -71,20 +72,7 @@ app.get('/buttonTapped', async (req, res) => {
 })
 
 // Updating the Button Tapped
-// app.patch('/buttonTapped/:id', async (req, res) => {
-//   try {
-//     const id = req.params.id;
-//     const result = await buttonTapped.updateOne(
-//       { _id: ObjectId(id) },
-//       { $set: req.body }
-//     );
-//     console.log(req.body)
-//     res.send(result);
-//   }
-//   catch (error) {
-//     console.log(error.name, error.message);
-//   }
-// })
+
 
 app.post('/buttonTapped', async (req, res) => {
   try {
@@ -96,6 +84,25 @@ app.post('/buttonTapped', async (req, res) => {
     console.log(error.name, error.message);
   }
 })
+
+// Image upload link
+
+app.patch('/logo/:id', async (req, res) => {
+  try {
+    const id = req.params.id;
+    const result = await logoDB.updateOne(
+      { _id: ObjectId(id) },
+      { $set: req.body }
+    );
+    console.log(req.body)
+    res.send(result);
+  }
+  catch (error) {
+    console.log(error.name, error.message);
+  }
+})
+
+
 
 app.get('/', (req, res) => {
   res.send(`Server is running port at ${PORT}`)
