@@ -85,8 +85,20 @@ app.post('/buttonTapped', async (req, res) => {
   }
 })
 
-// Image upload link
+// Getting image link
+app.get('/logo', async (req, res) => {
+  try {
+    const query = {}
+    const result = await logoDB.findOne(query)
+    res.send(result)
+  }
+  catch (error) {
+    console.log(error.name, error.message);
+  }
+})
 
+
+// Image upload link
 app.patch('/logo/:id', async (req, res) => {
   try {
     const id = req.params.id;
