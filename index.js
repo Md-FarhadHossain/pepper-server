@@ -27,99 +27,89 @@ const dbConnect = async () => {
 dbConnect();
 
 // Databse
-const headingDB = client.db('pepper').collection('heading')
-const buttonTapped = client.db('pepper').collection('buttonTapped')
-const logoDB = client.db('pepper').collection('logoDB')
+const headingDB = client.db("pepper").collection("heading");
+const buttonTapped = client.db("pepper").collection("buttonTapped");
+const logoDB = client.db("pepper").collection("logoDB");
 
 // Getting the Heading
-app.get('/heading', async (req, res) => {
+app.get("/heading", async (req, res) => {
   try {
-    const query = {}
-    const result = await headingDB.findOne(query)
-    res.send(result)
-  }
-  catch (error) {
+    const query = {};
+    const result = await headingDB.findOne(query);
+    res.send(result);
+  } catch (error) {
     console.log(error.name, error.message);
   }
-})
+});
 
 // Updating the Heading
-app.patch('/heading/:id', async (req, res) => {
+app.patch("/heading/:id", async (req, res) => {
   try {
     const id = req.params.id;
     const result = await headingDB.updateOne(
       { _id: ObjectId(id) },
       { $set: req.body }
     );
-    console.log(req.body)
+    console.log(req.body);
     res.send(result);
-  }
-  catch (error) {
+  } catch (error) {
     console.log(error.name, error.message);
   }
-})
+});
 
 // Getting Button Tapped
-app.get('/buttonTapped', async (req, res) => {
+app.get("/buttonTapped", async (req, res) => {
   try {
-    const query = {}
-    const result = await buttonTapped.find(query).toArray()
-    res.send(result)
-  }
-  catch (error) {
+    const query = {};
+    const result = await buttonTapped.find(query).toArray();
+    res.send(result);
+  } catch (error) {
     console.log(error.name, error.message);
   }
-})
+});
 
 // Updating the Button Tapped
 
-
-app.post('/buttonTapped', async (req, res) => {
+app.post("/buttonTapped", async (req, res) => {
   try {
-    const body = req.body
-    const result = await buttonTapped.insertOne(body)
-    res.send(result)
-  }
-  catch (error) {
+    const body = req.body;
+    const result = await buttonTapped.insertOne(body);
+    res.send(result);
+  } catch (error) {
     console.log(error.name, error.message);
   }
-})
+});
 
 // Getting image link
-app.get('/logo', async (req, res) => {
+app.get("/logo", async (req, res) => {
   try {
-    const query = {}
-    const result = await logoDB.findOne(query)
-    res.send(result)
-  }
-  catch (error) {
+    const query = {};
+    const result = await logoDB.findOne(query);
+    res.send(result);
+  } catch (error) {
     console.log(error.name, error.message);
   }
-})
-
+});
 
 // Image upload link
-app.patch('/logo/:id', async (req, res) => {
+app.patch("/logo/:id", async (req, res) => {
   try {
     const id = req.params.id;
     const result = await logoDB.updateOne(
       { _id: ObjectId(id) },
       { $set: req.body }
     );
-    console.log(req.body)
+    console.log(req.body);
     res.send(result);
-  }
-  catch (error) {
+  } catch (error) {
     console.log(error.name, error.message);
   }
-})
+});
 
-
-
-app.get('/', (req, res) => {
-  res.send(`Server is running port at ${PORT}`)
-})
+app.get("/", (req, res) => {
+  res.send(`Server is running port at ${PORT}`);
+});
 
 app.listen(PORT, () => {
-  console.log(`Server is running port at ${PORT}`)
-})
+  console.log(`Server is running port at ${PORT}`);
+});
